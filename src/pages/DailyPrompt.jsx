@@ -1,7 +1,9 @@
+import StoryPrompt from "../components/StoryPrompt"
+
  function DailyPrompt() {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-800 text-center">Daily Prompt</h1>
+    <div className="min-h-[calc(100vh-9rem)] bg-white-100 py-6">
+      <StoryPrompt />
     </div>
   )
 }
