@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { ImagePlus, Send } from "lucide-react"
 import PostCard from "../components/PostCard"
 import mockPosts from "../data/mockPosts"
@@ -7,21 +7,33 @@ import Tooltip from "../components/Tooltip"
 function MainFeed() {
   const [posts, setPosts] = useState(mockPosts)
   const [postText, setPostText] = useState("")
+  const [pendingImage, setPendingImage] = useState(null)
+  const fileInputRef = useRef(null)
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => setPendingImage(reader.result)
+    reader.readAsDataURL(file)
+  }
 
   const handlePost = () => {
-    if (!postText.trim()) return
+    if (!postText.trim() && !pendingImage) return
     const newPost = {
       id: posts.length + 1,
       name: "Jim",
       avatar: "https://i.pravatar.cc/150?img=69",
       time: "Just now",
       content: postText,
-      image: null,
+      image: pendingImage,
       likes: 0,
       comments: 0,
     }
     setPosts([newPost, ...posts])
     setPostText("")
+    setPendingImage(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
   }
 
   return (
@@ -44,13 +56,41 @@ function MainFeed() {
             rows={3}
           />
         </div>
+
+        {/* Image Preview */}
+        {pendingImage && (
+          <div className="relative mb-4">
+            <img
+              src={pendingImage}
+              alt="preview"
+              className="w-full rounded-xl object-cover max-h-72"
+            />
+            <button
+              onClick={() => setPendingImage(null)}
+              className="absolute top-2 right-2 bg-gray-800 text-white text-sm px-3 py-1 rounded-full hover:bg-gray-900"
+            >
+              Remove
+            </button>
+          </div>
+        )}
+
         <div className="flex justify-between items-center border-t border-gray-100 pt-4">
           <Tooltip content="Click to add a photo to your post!">
-            <button className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-600 text-lg font-medium px-5 py-3 rounded-xl border border-gray-200">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-600 text-lg font-medium px-5 py-3 rounded-xl border border-gray-200"
+            >
               <ImagePlus className="w-5 h-5" />
               Add Photo
             </button>
           </Tooltip>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImageSelect}
+            className="hidden"
+          />
           <Tooltip content="Click Post to share with your friends!">
             <button
               onClick={handlePost}
