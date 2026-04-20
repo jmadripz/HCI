@@ -9,30 +9,8 @@ function NewsFeed() {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     })
-  }
-
-  const getCategoryDescription = (category) => {
-    const descriptions = {
-      "Health & Wellness": "Articles about physical and mental health, wellness tips, and medical research",
-      "Technology": "Latest tech news, gadgets, software updates, and industry trends",
-      "Environment": "Climate change, sustainability, conservation, and environmental science",
-      "Business": "Business news, market trends, entrepreneurship, and economic analysis",
-      "Science": "Scientific discoveries, research breakthroughs, and technological innovations"
-    }
-    return descriptions[category] || "General news category"
-  }
-
-  const getAuthorCredentials = (author) => {
-    const credentials = {
-      "Dr. Sarah Johnson": "PhD in Psychology, Mental Health Researcher at Stanford University",
-      "Tech Reporter": "Senior Technology Journalist with 10+ years in Silicon Valley",
-      "Environmental Correspondent": "Award-winning journalist specializing in climate and environmental issues",
-      "Business Analyst": "Former Wall Street analyst with expertise in market trends and economics",
-      "Science Writer": "Science communicator with background in physics and astronomy"
-    }
-    return credentials[author] || "Professional journalist and content creator"
   }
 
   return (
@@ -60,38 +38,33 @@ function NewsFeed() {
                 </Tooltip>
               </div>
 
-              {/* News Content */}
               <div className="p-6">
-                {/* Category Badge */}
-                <Tooltip content={getCategoryDescription(news.category)} position="top">
-                  <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full mb-3 cursor-help">
+                <Tooltip content={`Category: ${news.category}`} position="top">
+                  <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full mb-3">
                     {news.category}
                   </span>
                 </Tooltip>
 
-                {/* Title */}
-                <Tooltip content={`Published on ${formatDate(news.publishedAt)}`} position="top">
-                  <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight cursor-help">
-                    {news.title}
-                  </h2>
-                </Tooltip>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight">
+                  {news.title}
+                </h2>
 
-                {/* Content Preview */}
                 <p className="text-gray-600 text-sm mb-4">
                   {news.content}
                 </p>
 
-                {/* Meta Information */}
                 <div className="flex items-center justify-between text-sm text-gray-500">
                   <div className="flex items-center space-x-2">
-                    <Tooltip content={getAuthorCredentials(news.author)} position="bottom">
-                      <span className="font-medium cursor-help">{news.author}</span>
+                    <Tooltip content={`Author: ${news.author}`} position="bottom">
+                      <span className="font-medium">{news.author}</span>
                     </Tooltip>
                     <span>•</span>
-                    <span>{formatDate(news.publishedAt)}</span>
+                    <Tooltip content={`Published on ${formatDate(news.publishedAt)}`} position="bottom">
+                      <span>{formatDate(news.publishedAt)}</span>
+                    </Tooltip>
                   </div>
-                  <Tooltip content={`Estimated reading time based on average reading speed of 200 words per minute`} position="bottom">
-                    <span className="cursor-help">{news.readTime}</span>
+                  <Tooltip content={`Estimated reading time: ${news.readTime}`} position="bottom">
+                    <span>{news.readTime}</span>
                   </Tooltip>
                 </div>
               </div>
