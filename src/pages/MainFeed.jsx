@@ -13,7 +13,7 @@ function MainFeed() {
     const newPost = {
       id: posts.length + 1,
       name: "Jim",
-      avatar: "https://i.pravatar.cc/150?img=10",
+      avatar: "https://i.pravatar.cc/150?img=69",
       time: "Just now",
       content: postText,
       image: null,
@@ -25,14 +25,14 @@ function MainFeed() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-6 px-4">
+    <div className="max-w-4xl mx-auto py-6 px-4">
 
       {/* Post Composer */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-100">
         <p className="text-lg font-semibold text-gray-700 mb-3">Create a Post</p>
         <div className="flex items-start gap-3 mb-4">
           <img
-            src="https://i.pravatar.cc/150?img=10"
+            src="https://i.pravatar.cc/150?img=69"
             alt="Jim"
             className="w-12 h-12 rounded-full object-cover border-2 border-blue-100"
           />

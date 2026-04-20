@@ -29,6 +29,17 @@ const mockPosts = [
     likes: 31,
     comments: 9,
   },
+
+  {
+  id: 4,
+  name: "Jim",
+  avatar: "https://i.pravatar.cc/150?img=69",
+  time: "1 hour ago",
+  content: "Just got back from a lovely walk in the park. The weather was beautiful today! 🌳",
+  image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+  likes: 5,
+  comments: 2,
+},
 ]
 
 export default mockPosts
