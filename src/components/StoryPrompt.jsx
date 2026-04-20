@@ -97,7 +97,7 @@ function StoryPrompt() {
 	}
 
 	return (
-		<section className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6">
+		<section className="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6">
 			<div className="rounded-3xl bg-gray-300 p-3 sm:p-4">
 				<div className="rounded-full bg-white px-6 py-4 text-center shadow-inner">
 					<p className="text-m font-semibold uppercase tracking-wide text-gray-600 sm:text-sm">
@@ -216,7 +216,7 @@ function StoryPrompt() {
 
 			<div className="mt-5 space-y-2">
 				{storyRows.map((row) => (
-					<article key={row.id} className="rounded-sm border border-gray-200 bg-gray-50 p-3">
+					<article key={row.id} className="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
 						<div className="flex items-start gap-3">
 							{row.avatar ? (
 								<img

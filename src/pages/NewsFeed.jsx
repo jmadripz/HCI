@@ -14,9 +14,9 @@ function NewsFeed() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-        <Tooltip content="This is the News Feed page">News Feed</Tooltip>
+        <Tooltip content="This is the News Feed page"></Tooltip>
       </h1>
 
       <div className="space-y-6">
