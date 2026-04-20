@@ -4,11 +4,21 @@ import PostCard from "../components/PostCard"
 import mockPosts from "../data/mockPosts"
 import Tooltip from "../components/Tooltip"
 
+
 function MainFeed() {
   const [posts, setPosts] = useState(mockPosts)
   const [postText, setPostText] = useState("")
   const [pendingImage, setPendingImage] = useState(null)
   const fileInputRef = useRef(null)
+
+  const [friendRequests, setFriendRequests] = useState([
+  { id: 1, name: "Ava Thompson", mutualFriends: 8 },
+  { id: 2, name: "Marcus Lee", mutualFriends: 1 },
+  { id: 3, name: "Sofia Ramirez", mutualFriends: 14 },
+])
+
+const [showPrivacyPopup, setShowPrivacyPopup] = useState(false)
+const [selectedRequest, setSelectedRequest] = useState(null)
 
   const handleImageSelect = (e) => {
     const file = e.target.files?.[0]
@@ -34,10 +44,81 @@ function MainFeed() {
     setPostText("")
     setPendingImage(null)
     if (fileInputRef.current) fileInputRef.current.value = ""
+
+  const handleAcceptClick = (request) => {
+    setSelectedRequest(request)
+    setShowPrivacyPopup(true)
+  }
+
+  const handleClosePopup = () => {
+    setSelectedRequest(null)
+    setShowPrivacyPopup(false)
+  }
+
+  const handleAcceptAnyway = () => {
+    if (!selectedRequest) return
+
+    setFriendRequests(
+      friendRequests.filter((request) => request.id !== selectedRequest.id)
+    )
+
+    setSelectedRequest(null)
+    setShowPrivacyPopup(false)
+  }
+
+  const handleDeclineRequest = (id) => {
+    setFriendRequests(friendRequests.filter((request) => request.id !== id))
+  }
   }
 
   return (
     <div className="max-w-4xl mx-auto py-6 px-4">
+
+<div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-100">
+  <p className="text-lg font-semibold text-gray-700 mb-3">Friend Requests</p>
+  <p className="text-sm text-gray-500 mb-4">
+    Accepting a request will first show a privacy reminder.
+  </p>
+
+  <div className="space-y-3">
+    {friendRequests.length > 0 ? (
+      friendRequests.map((request) => (
+        <div
+          key={request.id}
+          className="flex items-center justify-between bg-gray-50 rounded-2xl p-4 border border-gray-100"
+        >
+          <div>
+            <p className="font-semibold text-gray-800">{request.name}</p>
+            <p className="text-sm text-gray-500">
+              {request.mutualFriends} mutual friend
+              {request.mutualFriends === 1 ? "" : "s"}
+            </p>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => handleDeclineRequest(request.id)}
+              className="px-4 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium"
+            >
+              Decline
+            </button>
+
+            <button
+              onClick={() => handleAcceptClick(request)}
+              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            >
+              Accept
+            </button>
+          </div>
+        </div>
+      ))
+    ) : (
+      <div className="bg-gray-50 rounded-2xl p-4 text-gray-500">
+        No pending friend requests.
+      </div>
+    )}
+  </div>
+</div>
 
       {/* Post Composer */}
       <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-100">
@@ -107,6 +188,50 @@ function MainFeed() {
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
+
+      {/* Privacy Popup */}
+{showPrivacyPopup && selectedRequest && (
+  <div className="fixed inset-0 bg-black/40 flex items-center justify-center px-4 z-50">
+    <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+      <h2 className="text-xl font-bold text-gray-800 mb-3">
+        Do you know this person?
+      </h2>
+
+      <p className="text-gray-600 mb-4">
+        Only accept friend requests from people you know and trust.
+        Accepting strangers may put your privacy and personal information at risk.
+      </p>
+
+      <div className="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-100">
+        <p className="font-semibold text-gray-800">{selectedRequest.name}</p>
+        <p className="text-sm text-gray-500">
+          {selectedRequest.mutualFriends} mutual friend
+          {selectedRequest.mutualFriends === 1 ? "" : "s"}
+        </p>
+      </div>
+
+      <p className="text-sm text-amber-700 mb-5">
+        Be cautious of unknown individuals. If you are unsure, decline the request.
+      </p>
+
+      <div className="flex gap-3">
+        <button
+          onClick={handleClosePopup}
+          className="flex-1 px-4 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={handleAcceptAnyway}
+          className="flex-1 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium"
+        >
+          Accept Anyway
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
     </div>
   )
