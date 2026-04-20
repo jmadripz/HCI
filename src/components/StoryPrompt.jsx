@@ -1,5 +1,6 @@
 import { User } from "lucide-react"
 import { useRef, useState } from "react"
+import Tooltip from "./Tooltip"
 
 const initialStoryRows = [
 	{
@@ -24,6 +25,7 @@ const initialStoryRows = [
 		storyPhoto: null
 	}
 ]
+
 function StoryPrompt() {
 	const [storyRows, setStoryRows] = useState(initialStoryRows)
 	const [isStoryDraftOpen, setIsStoryDraftOpen] = useState(false)
@@ -63,14 +65,8 @@ function StoryPrompt() {
 	}
 
 	const handlePostStory = () => {
-		if (!pendingStoryText.trim()) {
-			return
-		}
-
-		addStoryRow({
-			text: pendingStoryText.trim(),
-			storyPhoto: null
-		})
+		if (!pendingStoryText.trim()) return
+		addStoryRow({ text: pendingStoryText.trim(), storyPhoto: null })
 		clearStoryDraft()
 	}
 
@@ -81,36 +77,22 @@ function StoryPrompt() {
 	const clearPhotoDraft = () => {
 		setPendingPhoto(null)
 		setPhotoCaption("")
-		if (fileInputRef.current) {
-			fileInputRef.current.value = ""
-		}
+		if (fileInputRef.current) fileInputRef.current.value = ""
 	}
 
 	const handlePhotoSelected = (event) => {
 		const selectedFile = event.target.files?.[0]
-		if (!selectedFile) {
-			return
-		}
+		if (!selectedFile) return
 		const fileReader = new FileReader()
-
 		fileReader.onload = () => {
-			if (typeof fileReader.result === "string") {
-				setPendingPhoto(fileReader.result)
-			}
+			if (typeof fileReader.result === "string") setPendingPhoto(fileReader.result)
 		}
-
 		fileReader.readAsDataURL(selectedFile)
 	}
 
 	const handlePostPhotoWithCaption = () => {
-		if (!pendingPhoto) {
-			return
-		}
-
-		addStoryRow({
-			text: photoCaption.trim() || "Shared a photo",
-			storyPhoto: pendingPhoto
-		})
+		if (!pendingPhoto) return
+		addStoryRow({ text: photoCaption.trim() || "Shared a photo", storyPhoto: pendingPhoto })
 		clearPhotoDraft()
 	}
 
@@ -128,21 +110,25 @@ function StoryPrompt() {
 			</div>
 
 			<div className="mx-auto mt-5 flex w-fit flex-wrap items-center justify-center gap-2 rounded-sm bg-gray-200 p-2 sm:gap-3 sm:px-3">
-				<button
-					type="button"
-					onClick={handleShareStory}
-					className="flex h-10 w-40 items-center justify-center rounded-sm border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-				>
-					Share your story
-				</button>
+				<Tooltip content="Click here to write and share your own story!" position="bottom">
+					<button
+						type="button"
+						onClick={handleShareStory}
+						className="flex h-10 w-40 items-center justify-center rounded-sm border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+					>
+						Share your story
+					</button>
+				</Tooltip>
 				<span className="text-xs font-semibold uppercase text-gray-700">or</span>
-				<button
-					type="button"
-					onClick={handlePostPhotoClick}
-					className="flex h-10 w-40 items-center justify-center rounded-sm border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-				>
-					Post a photo
-				</button>
+				<Tooltip content="Click here to upload a photo to share with your story!" position="bottom">
+					<button
+						type="button"
+						onClick={handlePostPhotoClick}
+						className="flex h-10 w-40 items-center justify-center rounded-sm border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+					>
+						Post a photo
+					</button>
+				</Tooltip>
 				<input
 					type="file"
 					accept="image/*"
@@ -163,20 +149,24 @@ function StoryPrompt() {
 						className="mt-3 w-full rounded-sm border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:border-gray-500 focus:outline-none"
 					/>
 					<div className="mt-3 flex flex-wrap gap-2">
-						<button
-							type="button"
-							onClick={handlePostStory}
-							className="rounded-sm border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
-						>
-							Post
-						</button>
-						<button
-							type="button"
-							onClick={clearStoryDraft}
-							className="rounded-sm border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
-						>
-							Cancel
-						</button>
+						<Tooltip content="Click Post to share your story with everyone!" position="bottom">
+							<button
+								type="button"
+								onClick={handlePostStory}
+								className="rounded-sm border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
+							>
+								Post
+							</button>
+						</Tooltip>
+						<Tooltip content="Click Cancel to discard your story" position="bottom">
+							<button
+								type="button"
+								onClick={clearStoryDraft}
+								className="rounded-sm border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
+							>
+								Cancel
+							</button>
+						</Tooltip>
 					</div>
 				</div>
 			) : null}
@@ -197,20 +187,24 @@ function StoryPrompt() {
 						className="mt-3 w-full rounded-sm border border-gray-300 px-3 py-2 text-sm text-gray-800 focus:border-gray-500 focus:outline-none"
 					/>
 					<div className="mt-3 flex flex-wrap gap-2">
-						<button
-							type="button"
-							onClick={handlePostPhotoWithCaption}
-							className="rounded-sm border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
-						>
-							Post
-						</button>
-						<button
-							type="button"
-							onClick={clearPhotoDraft}
-							className="rounded-sm border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
-						>
-							Cancel
-						</button>
+						<Tooltip content="Click Post to share your photo with everyone!" position="bottom">
+							<button
+								type="button"
+								onClick={handlePostPhotoWithCaption}
+								className="rounded-sm border border-gray-300 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200"
+							>
+								Post
+							</button>
+						</Tooltip>
+						<Tooltip content="Click Cancel to discard your photo" position="bottom">
+							<button
+								type="button"
+								onClick={clearPhotoDraft}
+								className="rounded-sm border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
+							>
+								Cancel
+							</button>
+						</Tooltip>
 					</div>
 				</div>
 			) : null}
@@ -230,9 +224,7 @@ function StoryPrompt() {
 									alt={`${row.name}'s avatar`}
 									className="h-12 w-12 rounded-full border border-white-300 bg-white object-cover"
 									onError={(event) => {
-										event.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-											row.name
-										)}&background=e5e7eb&color=6b7280`
+										event.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(row.name)}&background=e5e7eb&color=6b7280`
 									}}
 								/>
 							) : (
@@ -245,7 +237,6 @@ function StoryPrompt() {
 								<p className="text-m text-gray-900">{row.text}</p>
 							</div>
 						</div>
-
 						{row.storyPhoto ? (
 							<img
 								src={row.storyPhoto}
