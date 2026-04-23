@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Camera, Pencil, Check, X, MapPin, Briefcase, GraduationCap, School, Cake } from "lucide-react"
 import Tooltip from "../components/Tooltip"
 import mockPosts from "../data/mockPosts"
@@ -9,6 +9,16 @@ function Profile() {
   const [name, setName] = useState("Jim")
   const [bio, setBio] = useState("Retired teacher. Love gardening, travel, and keeping up with the grandkids. 🌱")
   const [temp, setTemp] = useState({})
+  const [avatar, setAvatar] = useState("https://i.pravatar.cc/150?img=69")
+  const fileInputRef = useRef(null)
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => setAvatar(reader.result)
+    reader.readAsDataURL(file)
+  }
 
   const [details, setDetails] = useState({
     location: "Baton Rouge, LA",
@@ -51,25 +61,35 @@ function Profile() {
       <div className="max-w-4xl mx-auto space-y-6">
 
         {/* Profile Header Card */}
-        <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-          
+        <div className="bg-white rounded-2xl shadow-md border border-gray-100">
+
           {/* Cover Photo */}
-          <div className="h-32 bg-gradient-to-r from-blue-400 to-blue-600" />
+          <div className="h-32 bg-gradient-to-r from-blue-400 to-blue-600 rounded-t-2xl" />
 
           {/* Avatar + Name */}
-          <div className="px-8 pb-6">
-            <div className="flex items-end justify-between -mt-12 mb-4">
-              <div className="relative">
+          <div className="px-8 pb-6 overflow-visible">
+            <div className="flex items-end justify-between -mt-8 mb-6 overflow-visible">
+              <div className="flex items-center gap-4">
                 <img
-                  src="https://i.pravatar.cc/150?img=69"
+                  src={avatar}
                   alt="Jim"
                   className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover"
                 />
                 <Tooltip content="Update your profile photo" position="bottom">
-                  <button className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-1.5 rounded-full shadow">
-                    <Camera className="w-4 h-4" />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow mt-8"
+                  >
+                    <Camera className="w-5 h-5" />
                   </button>
                 </Tooltip>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={handlePhotoChange}
+                  className="hidden"
+                />
               </div>
 
               {/* Edit Button */}

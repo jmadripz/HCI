@@ -62,31 +62,35 @@ function PostCard({ post }) {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between border-gray-100 overflow-visible">
+      <div className="grid grid-cols-3 gap-3 overflow-visible">
         <Tooltip content="Tap Like to show you enjoyed this post!">
           <button
             onClick={handleLike}
-            className={`flex items-center gap-2 text-lg px-4 py-2 rounded-xl transition-colors ${
-              liked ? "text-blue-600 font-bold" : "text-gray-500 hover:text-blue-600"
+            className={`w-full flex flex-col items-center gap-1 py-3 rounded-xl text-lg transition-colors border ${
+              liked ? "bg-blue-50 text-blue-600 border-blue-200 font-bold" : "bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 border-gray-200"
             }`}
           >
-            <ThumbsUp className="w-5 h-5" />
-            {liked ? "Liked" : "Like"}
+            <ThumbsUp className="w-6 h-6" />
+            <span>{liked ? "Liked" : "Like"}</span>
           </button>
         </Tooltip>
+
         <Tooltip content="Tap Comment to write a reply to this post!">
           <button
             onClick={() => setShowComments(!showComments)}
-            className="flex items-center gap-2 text-gray-500 hover:text-blue-600 text-lg px-4 py-2 rounded-xl transition-colors"
+            className="w-full flex flex-col items-center gap-1 bg-gray-50 hover:bg-blue-50 hover:text-blue-600 text-gray-500 py-3 rounded-xl text-lg transition-colors border border-gray-200"
           >
-            <MessageCircle className="w-5 h-5" />
-            Comment
+            <MessageCircle className="w-6 h-6" />
+            <span>Comment</span>
           </button>
         </Tooltip>
+
         <Tooltip content="Tap Share to send this post to a friend!">
-          <button className="flex items-center gap-2 text-gray-500 hover:text-blue-600 text-lg px-4 py-2 rounded-xl transition-colors">
-            <Share2 className="w-5 h-5" />
-            Share
+          <button
+            className="w-full flex flex-col items-center gap-1 bg-gray-50 hover:bg-blue-50 hover:text-blue-600 text-gray-500 py-3 rounded-xl text-lg transition-colors border border-gray-200"
+          >
+            <Share2 className="w-6 h-6" />
+            <span>Share</span>
           </button>
         </Tooltip>
       </div>

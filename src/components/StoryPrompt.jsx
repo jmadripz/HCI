@@ -13,14 +13,14 @@ const initialStoryRows = [
 	{
 		id: 2,
 		name: "Noah",
-		avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy4qYyqxZ95QzeskwIBceTDPXiTckKBtdbQ&s",
+		avatar: "https://i.pravatar.cc/150?img=13",
 		text: "I saw this cop car that had \"Zombie Hunter\" on the back and I thought it was hilarious. It made my day!",
-		storyPhoto: "https://scontent-dfw6-1.xx.fbcdn.net/v/t39.30808-6/514354603_24324015273857493_864285450657031229_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=103&ccb=1-7&_nc_sid=0327a3&_nc_ohc=53jjO2owoI0Q7kNvwGyrD9U&_nc_oc=Adpu8y-zyOylqaFFRQZSU8EtgLChyFxXkbUO9iFqrDuJD-XfKV7JkGhpnd0OuwHHo1s&_nc_zt=23&_nc_ht=scontent-dfw6-1.xx&_nc_gid=Sg5u8C7TWGiI5UbLngsyTQ&_nc_ss=7a389&oh=00_Af11QjTpOtZZo84iKlwGs8Cf2el4F09rqpKJ7xhQMQJD6w&oe=69E8D8F3"
+		storyPhoto: "https://imgur.com/a/AGQd3wN"
 	},
 	{
 		id: 3,
 		name: "Mark",
-		avatar: "https://scontent-dfw5-1.xx.fbcdn.net/v/t39.30808-6/326343980_1283493222381132_6921946581584498140_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=ROPEVwoDh_8Q7kNvwEXGXT1&_nc_oc=Adrpfgsh-CrfLeOQKUJ2ZA8cOslQeQfg7ZbnoGwofvHDUEdKwgcAiRWMH7jFKF_Pf4s&_nc_zt=23&_nc_ht=scontent-dfw5-1.xx&_nc_gid=csRn4hxVO9dSMJS2FOOe-w&_nc_ss=7a389&oh=00_Af2gTXIxBHHtbgh5e5Up3QPD_easzNkKluAGGVNu6MwyTA&oe=69E8C5AC",
+		avatar: "https://i.pravatar.cc/150?img=14",
 		text: "I once went on a hike and got caught in a sudden rainstorm. I had to take shelter under a tree for hours until the storm passed. It was scary but also kind of exhilarating!",
 		storyPhoto: null
 	}
