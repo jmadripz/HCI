@@ -20,10 +20,10 @@ function TabBar() {
         <Tooltip key={name} content={tooltip} position={position || "bottom"}>
           <button
             onClick={() => navigate(path)}
-            className={`py-3 px-5 text-lg font-medium transition-colors flex items-center gap-2 whitespace-nowrap ${
+            className={`py-4 px-5 text-xl font-medium transition-colors flex items-center gap-2 whitespace-nowrap ${
               location.pathname === path
-                ? "bg-blue-500 text-white rounded-t-2xl border-transparent"
-                : "border-transparent text-gray-600 hover:text-blue-600"
+                ? "bg-blue-600 text-white rounded-t-2xl border-transparent shadow-md font-bold"
+: "border-transparent text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-t-2xl"
             }`}
           >
             {name}

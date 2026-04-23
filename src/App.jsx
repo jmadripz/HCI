@@ -5,9 +5,9 @@ import MainFeed from "./pages/MainFeed"
 import CloseCircle from "./pages/CloseCircle"
 import NewsFeed from "./pages/NewsFeed"
 import DailyPrompt from "./pages/DailyPrompt"
-import Messages from "./pages/Messages"  
-import Profile from "./pages/Profile" 
-
+import Messages from "./pages/Messages"
+import Profile from "./pages/Profile"
+import Friends from "./pages/Friends"
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/daily-prompt" element={<DailyPrompt />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/friends" element={<Friends />} />
       </Routes>
     </BrowserRouter>
   )
