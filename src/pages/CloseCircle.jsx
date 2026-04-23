@@ -1,6 +1,9 @@
 import { useState } from "react";
+import PostCard from "../components/PostCard"
+import mockCloseCircle from "../data/mockCloseCircle"
 
 function CloseCircle() {
+  const [posts, setPosts] = useState(mockCloseCircle)
   const [members, setMembers] = useState([
     { id: 1, name: "Mom" },
     { id: 2, name: "Best Friend" },
@@ -64,6 +67,11 @@ function CloseCircle() {
           </div>
         ))}
       </div>
+
+       {/* Posts */}
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
 
       {/* Simple feed */}
       <div className="mt-8">

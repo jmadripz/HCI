@@ -44,7 +44,8 @@ const [selectedRequest, setSelectedRequest] = useState(null)
     setPostText("")
     setPendingImage(null)
     if (fileInputRef.current) fileInputRef.current.value = ""
-
+  }
+  
   const handleAcceptClick = (request) => {
     setSelectedRequest(request)
     setShowPrivacyPopup(true)
@@ -69,7 +70,7 @@ const [selectedRequest, setSelectedRequest] = useState(null)
   const handleDeclineRequest = (id) => {
     setFriendRequests(friendRequests.filter((request) => request.id !== id))
   }
-  }
+
 
   return (
     <div className="max-w-4xl mx-auto py-6 px-4">
